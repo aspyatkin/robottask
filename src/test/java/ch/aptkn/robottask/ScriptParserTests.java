@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
-class RobottaskApplicationTests {
+class ScriptParserTests {
     private final ScriptParserService scriptParserService;
 
-    public RobottaskApplicationTests() {
+    public ScriptParserTests() {
         this.scriptParserService = new ScriptParserService();
     }
 

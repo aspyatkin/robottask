@@ -1,6 +1,10 @@
 package ch.aptkn.robottask.command;
 
+import ch.aptkn.robottask.exception.PositionOutOfGridBoundsException;
+import ch.aptkn.robottask.exception.RobotPositionAlreadyInitializedException;
+import ch.aptkn.robottask.exception.ScriptCommandExecutionException;
 import ch.aptkn.robottask.model.CardinalDirection;
+import ch.aptkn.robottask.model.Robot;
 
 public class ScriptPositionCommand implements IScriptCommand {
     private final int initialPosX;
@@ -20,5 +24,14 @@ public class ScriptPositionCommand implements IScriptCommand {
         if (!(o instanceof ScriptPositionCommand other))
             return false;
         return other.initialPosX == initialPosX && other.initialPosY == initialPosY && other.initialCardinalDirection.equals(initialCardinalDirection);
+    }
+
+    @Override
+    public void execute(Robot robot) throws ScriptCommandExecutionException {
+        try {
+            robot.init(initialPosX, initialPosY, initialCardinalDirection);
+        } catch (PositionOutOfGridBoundsException | RobotPositionAlreadyInitializedException e) {
+            throw new ScriptCommandExecutionException(e);
+        }
     }
 }
