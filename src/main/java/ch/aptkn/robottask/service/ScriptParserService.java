@@ -63,13 +63,13 @@ public class ScriptParserService {
                 checkNumberOfArguments(lineNum, line, cmd, parts, 0);
                 return new ScriptLeftCommand();
             }
-            default -> throw new ScriptParserException("Unknown command '%s'. Line %d: '%s'".formatted(cmd, lineNum, line));
+            default -> throw new ScriptParserException("Unknown command '%s'".formatted(cmd), lineNum, line);
         }
     }
 
     private void checkNumberOfArguments(long lineNum, String line, String cmd, String[] parts, int required) throws ScriptParserException {
         if (parts.length - 1 != required) {
-            throw new ScriptParserException("Invalid number of arguments for '%s' command. Line %d: '%s'".formatted(cmd, lineNum, line));
+            throw new ScriptParserException("Invalid number of arguments for '%s' command".formatted(cmd), lineNum, line);
         }
     }
 
@@ -85,11 +85,11 @@ public class ScriptParserService {
         try {
             int n = Integer.parseInt(arg);
             if (n < 0) {
-                throw new ScriptParserException("Expected positive integer argument for '%s' command, got '%s'. Line %d: '%s'".formatted(cmd, arg, lineNum, line));
+                throw new ScriptParserException("Expected positive integer argument for '%s' command, got '%s'".formatted(cmd, arg), lineNum, line);
             }
             return n;
         } catch (NumberFormatException e) {
-            throw new ScriptParserException("Expected integer argument for '%s' command, got '%s'. Line %d: '%s'".formatted(cmd, arg, lineNum, line));
+            throw new ScriptParserException("Expected integer argument for '%s' command, got '%s'".formatted(cmd, arg), lineNum, line);
         }
     }
 
@@ -97,7 +97,7 @@ public class ScriptParserService {
         try {
             return CardinalDirection.valueOf(arg.toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
-            throw new ScriptParserException("Expected one of (NORTH, EAST, SOUTH, WEST) as direction argument for '%s' command, got '%s'. Line %d: '%s'".formatted(cmd, arg, lineNum, line));
+            throw new ScriptParserException("Expected one of (NORTH, EAST, SOUTH, WEST) as direction argument for '%s' command, got '%s'".formatted(cmd, arg), lineNum, line);
         }
     }
 }
