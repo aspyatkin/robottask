@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <title>ch.aptkn.robottask</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/sticky-footer.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="./">
+        <img src="./img/robot-icon-west.png" height="30" class="d-inline-block align-top" alt="Robot">
+        &nbsp;
+        ch.aptkn.robottask
+    </a>
+</nav>
+
+<main role="main" class="container">
+    <section class="mt-4">
+        <form action="/" th:action="@{/}" th:object="${inputScript}" method="post">
+            <div class="form-group">
+                <label for="source">Script</label>
+                <textarea class="form-control" id="source" rows="10" required autofocus th:field="*{source}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Execute</button>
+        </form>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">MIT © <a href="https://github.com/aspyatkin/robottask" target="_blank" rel="noopener">Alexander Pyatkin</a></span>
+    </div>
+</footer>
+
+</body>
+</html>

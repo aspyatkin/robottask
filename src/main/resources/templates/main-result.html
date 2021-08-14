@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <title>ch.aptkn.robottask</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/sticky-footer.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="./">
+    <img src="./img/robot-icon-west.png" height="30" class="d-inline-block align-top" alt="Robot">
+    &nbsp;
+    ch.aptkn.robottask
+  </a>
+</nav>
+
+<main role="main" class="container">
+  <section th:if="${robot != null && grid != null}" class="mt-4">
+    <p>Result</p>
+    <canvas id="grid" th:width="${grid.width * 60}" th:height="${grid.height * 60}"></canvas>
+    <div style="display:none;">
+      <img id="robot" width="48" height="48">
+    </div>
+  </section>
+
+  <section th:if="${error}" class="mt-4">
+    <div class="alert alert-danger" role="alert">
+      <p th:text="${error.toString()}"></p>
+    </div>
+  </section>
+
+  <section class="mt-4">
+    <form>
+      <div class="form-group">
+        <label for="source">Script</label>
+        <textarea class="form-control" id="source" rows="10" disabled th:text="${inputScript.source}"></textarea>
+      </div>
+    </form>
+    <a href="/">Back</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <span class="text-muted">MIT © <a href="https://github.com/aspyatkin/robottask" target="_blank" rel="noopener">Alexander Pyatkin</a>.&nbsp;<a href="https://iconarchive.com/show/real-vista-mail-icons-by-iconshock/robot-icon.html" target="_blank" rel="noopener">Robot Icon</a></span>
+  </div>
+</footer>
+
+<script th:if="${grid}" th:inline="javascript">
+  var gridCell = 60;
+  var gridWidth = [[${grid.width}]];
+  var gridHeight = [[${grid.height}]];
+</script>
+
+<script th:if="${robot}" th:inline="javascript">
+  var robotPosX = [[${robot.posX}]];
+  var robotPosY = [[${robot.posY}]];
+  var robotCardinalDirection = [[${robot.cardinalDirection}]];
+</script>
+
+<script>
+    var canvas = document.getElementById('grid');
+    if (canvas) {
+
+      var ctx = canvas.getContext('2d');
+      for (var i = 0; i <= gridWidth; i++) {
+        ctx.strokeStyle = '#666';
+        ctx.moveTo(i * gridCell, 0);
+        ctx.lineTo(i * gridCell, gridCell * gridHeight);
+        ctx.stroke();
+      }
+      for (var j = 0; j <= gridHeight; j++) {
+        ctx.strokeStyle = '#666';
+        ctx.moveTo(0, j * gridCell);
+        ctx.lineTo(gridCell * gridWidth, j * gridCell);
+        ctx.stroke();
+      }
+
+      var robotSprite = document.getElementById('robot');
+      if (robotSprite) {
+        robotSprite.setAttribute('src', '/img/robot-icon-' + robotCardinalDirection.toLowerCase() + '.png');
+        robotSprite.addEventListener('load', function() {
+          ctx.drawImage(robotSprite, 0, 0, 48, 48, gridCell * robotPosX + 6, gridCell * robotPosY + 6, 48, 48);
+          ctx.restore();
+        });
+      }
+    }
+  </script>
+</body>
+</html>

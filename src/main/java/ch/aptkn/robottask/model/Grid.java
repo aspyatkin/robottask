@@ -3,6 +3,14 @@ package ch.aptkn.robottask.model;
 import ch.aptkn.robottask.exception.PositionOutOfGridBoundsException;
 
 public class Grid {
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     private final int width;
     private final int height;
 

@@ -13,6 +13,6 @@ public class ScriptParserException extends Exception {
 
     @Override
     public String toString() {
-        return "Error:\n%s\nLine %d: %s".formatted(getMessage(), lineNum, line);
+        return "Parser error:\n%s\nLine %d: '%s'".formatted(getMessage(), lineNum, line);
     }
 }
