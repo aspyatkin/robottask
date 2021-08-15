@@ -8,7 +8,6 @@ import ch.aptkn.robottask.model.InputScript;
 import ch.aptkn.robottask.model.Robot;
 import ch.aptkn.robottask.service.ScriptExecutorService;
 import ch.aptkn.robottask.service.ScriptParserService;
-import com.sun.tools.javac.Main;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
